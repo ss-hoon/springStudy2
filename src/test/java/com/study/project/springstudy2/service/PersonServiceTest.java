@@ -30,6 +30,14 @@ public class PersonServiceTest {
         result.forEach(System.out::println);
     }
 
+    @Test
+    void getPeopleByName(){
+        givenPeople();
+
+        List<Person> result = personService.getPeopleByName("martin");
+        result.forEach(System.out::println);
+    }
+
     // Cascade Test
     @Test
     void cascadeTest(){
