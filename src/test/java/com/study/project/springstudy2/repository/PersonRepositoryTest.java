@@ -1,6 +1,7 @@
 package com.study.project.springstudy2.repository;
 
 import com.study.project.springstudy2.domain.Person;
+import com.study.project.springstudy2.domain.dto.Birthday;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -56,14 +57,16 @@ public class PersonRepositoryTest {
     @Test
     void findByBirthdayBetween(){
         givenPerson("martin", 10, "A", LocalDate.of(1991,8,3));
-        givenPerson("david", 9, "B", LocalDate.of(1992,10,12));
+        givenPerson("david", 9, "B", LocalDate.of(1992,5,22));
         givenPerson("dennis", 8, "O", LocalDate.of(1993,3,25));
-        givenPerson("sophia", 7, "AB", LocalDate.of(1994,5,5));
+        givenPerson("sophia", 7, "AB", LocalDate.of(1994,10,4));
         givenPerson("benny", 6, "A", LocalDate.of(1995,8,21));
 
-        List<Person> result = personRepository.findByBirthdayBetween(LocalDate.of(1991,8,1), LocalDate.of(1991,8,31));
+        List<Person> result = personRepository.findByMonthOfBirthday(2);
+        result.forEach(System.out::println);
     }
 
+    @Test
     private void givenPerson(String name, int age, String bloodType){
         Person person = new Person(name, age, bloodType);
 
@@ -73,7 +76,7 @@ public class PersonRepositoryTest {
     @Test
     private void givenPerson(String name, int age, String bloodType, LocalDate birthday){
         Person person = new Person(name, age, bloodType);
-        person.setBirthday(birthday);
+        person.setBirthday(new Birthday(birthday));
 
         personRepository.save(person);
     }

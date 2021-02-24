@@ -1,8 +1,10 @@
 package com.study.project.springstudy2.domain;
 
+import com.study.project.springstudy2.domain.dto.Birthday;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import java.time.LocalDate;
 
 @Entity
@@ -28,7 +30,9 @@ public class Person {
 
     private String address;
 
-    private LocalDate birthday;
+    @Valid
+    @Embedded
+    private Birthday birthday;
 
     private String job;
 
