@@ -3,6 +3,8 @@ package com.study.project.springstudy2.domain;
 import com.study.project.springstudy2.controller.dto.PersonDto;
 import com.study.project.springstudy2.domain.dto.Birthday;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Where;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
@@ -16,6 +18,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Data
+@Where(clause = "deleted = false")
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,6 +50,10 @@ public class Person {
 
     @ToString.Exclude
     private String phoneNumber;
+
+    // 현업에서 사용하는 soft delete 방식
+    @ColumnDefault("0")
+    private boolean deleted;
 
     // EAGER Type : 처음에 바로 left outer join (optional = false를 사용하면 inner join)
     // LAZY Type : 필요한 시점에 select
