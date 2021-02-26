@@ -7,8 +7,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -36,12 +38,42 @@ public class PersonControllerTest {
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/api/person")
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
-                        .content("{\n" +
+                        .content(
+                                "{\n" +
                                 "    \"name\": \"martin2\",\n" +
                                 "    \"age\": \"20\",\n" +
                                 "    \"bloodType\": \"A\"\n" +
                                 "}"))
                 .andDo(print())
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    void modifyPerson() throws Exception{
+        mockMvc = MockMvcBuilders.standaloneSetup(personController).build();
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.put("/api/person/1")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(
+                        "{\n" +
+                        "    \"name\": \"martin\",\n" +
+                        "    \"age\": \"20\",\n" +
+                        "    \"bloodType\": \"A\"\n" +
+                        "}"
+                ))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void modifyName() throws Exception{
+        mockMvc = MockMvcBuilders.standaloneSetup(personController).build();
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.patch("/api/person/1")
+                .param("name", "martin2"))
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 }

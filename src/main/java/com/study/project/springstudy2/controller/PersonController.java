@@ -1,5 +1,6 @@
 package com.study.project.springstudy2.controller;
 
+import com.study.project.springstudy2.controller.dto.PersonDto;
 import com.study.project.springstudy2.domain.Person;
 import com.study.project.springstudy2.repository.PersonRepository;
 import com.study.project.springstudy2.service.PersonService;
@@ -28,6 +29,20 @@ public class PersonController {
     @ResponseStatus(HttpStatus.CREATED)
     public void postPerson(@RequestBody Person person){
         personService.put(person);
+
+        log.info("person -> {}", personRepository.findAll());
+    }
+
+    @PutMapping("/{id}")
+    public void modifyPerson(@PathVariable Long id, @RequestBody PersonDto personDto){
+        personService.modify(id, personDto);
+
+        log.info("person -> {}", personRepository.findAll());
+    }
+
+    @PatchMapping("/{id}")
+    public void modifyPerson(@PathVariable Long id, String name){
+        personService.modify(id, name);
 
         log.info("person -> {}", personRepository.findAll());
     }
