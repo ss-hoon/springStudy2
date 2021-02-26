@@ -10,12 +10,14 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Slf4j
 @SpringBootTest
+@Transactional
 public class PersonControllerTest {
 
     @Autowired
@@ -47,7 +49,6 @@ public class PersonControllerTest {
                         .content(
                                 "{\n" +
                                 "    \"name\": \"martin2\",\n" +
-                                "    \"age\": \"20\",\n" +
                                 "    \"bloodType\": \"A\"\n" +
                                 "}"))
                 .andDo(print())
@@ -62,7 +63,6 @@ public class PersonControllerTest {
                 .content(
                         "{\n" +
                         "    \"name\": \"martin\",\n" +
-                        "    \"age\": \"20\",\n" +
                         "    \"bloodType\": \"A\"\n" +
                         "}"
                 ))

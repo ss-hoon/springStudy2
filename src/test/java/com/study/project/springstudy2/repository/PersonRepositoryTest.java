@@ -21,25 +21,12 @@ public class PersonRepositoryTest {
     void crud(){
         Person person = new Person();
         person.setName("John");
-        person.setAge(10);
-        person.setBloodType("A");
 
         personRepository.save(person);
 
         List<Person> result = personRepository.findAll();
 
         assertThat(result.size()).isEqualTo(6);
-
-        result.forEach(System.out::println);
-    }
-
-    @Test
-    void findByBloodType(){
-        List<Person> result = personRepository.findByBloodType("A");
-
-        assertThat(result.size()).isEqualTo(2);
-        assertThat(result.get(0).getName()).isEqualTo("martin");
-        assertThat(result.get(1).getName()).isEqualTo("benny");
 
         result.forEach(System.out::println);
     }
