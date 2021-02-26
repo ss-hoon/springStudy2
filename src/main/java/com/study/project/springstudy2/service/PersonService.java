@@ -25,12 +25,17 @@ public class PersonService {
 
     @Transactional(readOnly = true)
     public Person getPerson(Long id){
-        Person person = personRepository.findById(id).get();
+        Person person = personRepository.findById(id).orElse(null);
 
         // System.out.println는 모든 로그가 다 찍힘
         // production 코드에는 부적합
         log.info("person : {}", person);
 
         return person;
+    }
+
+    @Transactional
+    public void put(Person person){
+        personRepository.save(person);
     }
 }
