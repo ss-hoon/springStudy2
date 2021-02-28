@@ -3,7 +3,7 @@ package com.study.project.springstudy2.service;
 import com.study.project.springstudy2.controller.dto.PersonDto;
 import com.study.project.springstudy2.domain.Person;
 import com.study.project.springstudy2.exception.PersonNotFoundException;
-import com.study.project.springstudy2.exception.RenameNotPermittedExcpetion;
+import com.study.project.springstudy2.exception.RenameNotPermittedException;
 import com.study.project.springstudy2.repository.PersonRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class PersonService {
         Person person = personRepository.findById(id).orElseThrow(PersonNotFoundException::new);
 
         if(!person.getName().equals(personDto.getName()))
-            throw new RenameNotPermittedExcpetion();
+            throw new RenameNotPermittedException();
 
         person.set(personDto);
 

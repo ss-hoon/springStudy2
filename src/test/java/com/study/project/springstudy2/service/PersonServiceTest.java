@@ -4,7 +4,7 @@ import com.study.project.springstudy2.controller.dto.PersonDto;
 import com.study.project.springstudy2.domain.Person;
 import com.study.project.springstudy2.domain.dto.Birthday;
 import com.study.project.springstudy2.exception.PersonNotFoundException;
-import com.study.project.springstudy2.exception.RenameNotPermittedExcpetion;
+import com.study.project.springstudy2.exception.RenameNotPermittedException;
 import com.study.project.springstudy2.repository.PersonRepository;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
@@ -81,7 +81,7 @@ public class PersonServiceTest {
         when(personRepository.findById(1L))
                 .thenReturn(Optional.of(new Person("tony")));
 
-        assertThrows(RenameNotPermittedExcpetion.class, () -> personService.modify(1L, mockPersonDto()));
+        assertThrows(RenameNotPermittedException.class, () -> personService.modify(1L, mockPersonDto()));
     }
 
     @Test
